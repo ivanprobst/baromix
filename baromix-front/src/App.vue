@@ -1,21 +1,57 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import Home from "./components/HomeForm.vue";
+import IconBarometer from "./assets/IconBarometer.vue";
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <header>
+    <IconBarometer :width="50" />
+    <h1>Baromix</h1>
+  </header>
+
+  <main>
+    <Home />
+  </main>
+
+  <footer>
+    <p>© 2021-2022 ivanprobst</p>
+  </footer>
 </template>
 
 <style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: DarkGreen;
+}
+
+header {
+  display: flex;
+  padding: 1em;
+}
+h1 {
+  margin-left: 0.5em;
+}
+
+main {
+  padding: 0 1em 0 1em;
+}
+h2 {
+  font-size: 3rem;
+}
+main p {
+  font-size: 2rem;
+}
+
+footer {
+  margin-top: auto;
 }
 </style>

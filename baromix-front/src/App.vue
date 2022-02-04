@@ -30,12 +30,13 @@ body {
   flex-direction: column;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  color: DarkGreen;
+  color: DarkSlateGray;
 }
 
 header {
   display: flex;
   padding: 1em;
+  color: DarkGreen;
 }
 h1 {
   margin-left: 0.5em;
@@ -43,12 +44,6 @@ h1 {
 
 main {
   padding: 0 1em 0 1em;
-}
-h2 {
-  font-size: 3rem;
-}
-main p {
-  font-size: 2rem;
 }
 
 footer {

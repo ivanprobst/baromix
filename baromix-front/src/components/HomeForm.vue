@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FormInputDate from "./FormInputDate.vue";
 import FormInputTime from "./FormInputTime.vue";
+import FormInputText from "./FormInputText.vue";
 </script>
 
 <template>
@@ -8,7 +9,7 @@ import FormInputTime from "./FormInputTime.vue";
 
   <p>On <FormInputDate /> at <FormInputTime /> ,</p>
 
-  <p>my barometer indicates <input value="74.6" /> ,</p>
+  <p>my barometer indicates <FormInputText placeholder="74.6" /> ,</p>
 
   <p>and the weather looks like it's <input value="sunny, windy, cold" /> .</p>
 

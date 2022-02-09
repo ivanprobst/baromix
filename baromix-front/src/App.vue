@@ -49,4 +49,12 @@ main {
 footer {
   margin-top: auto;
 }
+
+input {
+  padding: 0.5em;
+  font-size: inherit;
+  border: none;
+  background: Gainsboro;
+  text-align: center;
+}
 </style>

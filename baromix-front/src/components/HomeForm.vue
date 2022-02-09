@@ -1,28 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
-const selectedDate = ref(new Date());
-const selectedTime = ref(new Date());
+import FormInputDate from "./FormInputDate.vue";
+import FormInputTime from "./FormInputTime.vue";
 </script>
 
 <template>
   <h2>Hello friend!</h2>
 
-  <p id="date-text">
-    On
-    <v-date-picker v-model="selectedDate">
-      <template #default="{ inputValue, inputEvents }">
-        <input id="input-date" :value="inputValue" v-on="inputEvents" />
-      </template>
-    </v-date-picker>
-    at
-    <v-date-picker v-model="selectedTime" mode="time" is24hr>
-      <template #default="{ inputValue, inputEvents }">
-        <input id="input-time" :value="inputValue" v-on="inputEvents" />
-      </template>
-    </v-date-picker>
-    ,
-  </p>
+  <p>On <FormInputDate /> at <FormInputTime /> ,</p>
 
   <p>my barometer indicates <input value="74.6" /> ,</p>
 
@@ -39,21 +23,5 @@ h2 {
 }
 main p {
   font-size: 2rem;
-}
-input {
-  padding: 0.5em;
-  font-size: 2rem;
-  border: none;
-  background: Gainsboro;
-  text-align: center;
-}
-#date-text > div {
-  display: inline;
-}
-#input-date {
-  width: 5.5em;
-}
-#input-time {
-  width: 3em;
 }
 </style>

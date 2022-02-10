@@ -1,16 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { useHomeFormStore } from "../store/rootStore";
 
-const props = defineProps({
-  defaultTime: { type: Date, default: new Date() },
-});
-
-const selectedTime = ref(props.defaultTime);
+const homeFormStore = useHomeFormStore();
 </script>
 
 <template>
   <div id="input-container">
-    <v-date-picker v-model="selectedTime" mode="time" is24hr>
+    <v-date-picker v-model="homeFormStore.inputTime" mode="time" is24hr>
       <template #default="{ inputValue, inputEvents }">
         <input :value="inputValue" v-on="inputEvents" />
       </template>

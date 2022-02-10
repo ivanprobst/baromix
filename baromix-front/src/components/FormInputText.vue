@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { useHomeFormStore } from "../store/rootStore";
+
+const homeFormStore = useHomeFormStore();
 
 const props = defineProps({
-  defaultText: { type: String, default: "" },
   placeholder: { type: String, default: "" },
 });
-
-const text = ref(props.defaultText);
 </script>
 
 <template>
   <div id="input-container">
-    <input :value="text" :placeholder="props.placeholder" />
+    <input
+      v-model="homeFormStore.inputBarometer"
+      :placeholder="props.placeholder"
+    />
   </div>
 </template>
 

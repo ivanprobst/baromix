@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-defineProps({ tagLabel: { type: String, required: true } });
+const props = defineProps({ tag: { type: Object, required: true } });
 
 const tagIsActive = ref(false);
+
+const emit = defineEmits(["toggleTag"]);
+
+const tagClickHandler = () => {
+  tagIsActive.value = !tagIsActive.value;
+  emit("toggleTag", props.tag.id);
+};
 </script>
 
 <template>
-  <div
-    :class="{ active: tagIsActive }"
-    @click="() => (tagIsActive = !tagIsActive)"
-  >
-    {{ tagLabel }}
+  <div :class="{ active: tagIsActive }" @click="tagClickHandler">
+    {{ tag.label }}
   </div>
 </template>
 
@@ -24,6 +28,7 @@ div {
   border: 1px solid moccasin;
   background: OldLace;
   cursor: pointer;
+  user-select: none;
 }
 div.active {
   color: white;

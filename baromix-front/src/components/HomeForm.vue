@@ -4,9 +4,18 @@ import FormInputTime from "./FormInputTime.vue";
 import FormInputText from "./FormInputText.vue";
 import FormButton from "./FormButton.vue";
 import TagsList from "./TagsList.vue";
+import { useHomeFormStore } from "../store/rootStore";
+
+const homeFormStore = useHomeFormStore();
 
 const homeSubmitHandler = () => {
-  console.log("click");
+  console.log("click:", {
+    inputBarometer: homeFormStore.inputBarometer,
+    inputDate: homeFormStore.inputDate,
+    inputTime: homeFormStore.inputTime,
+    selectedWeatherTags: homeFormStore.selectedWeatherTags,
+  });
+  // TODO: send this data somewhere!!!
 };
 </script>
 
@@ -21,7 +30,12 @@ const homeSubmitHandler = () => {
 
   <TagsList />
 
-  <FormButton @click="homeSubmitHandler">Send to Baromix</FormButton>
+  <FormButton
+    :disabled="!homeFormStore.canSubmitHomeForm"
+    @click="homeSubmitHandler"
+  >
+    Send to Baromix
+  </FormButton>
 
   <p>(the meteo is saying it's ⛈)</p>
 </template>

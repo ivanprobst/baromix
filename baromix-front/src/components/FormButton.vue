@@ -1,9 +1,11 @@
 <script setup lang="ts">
+const props = defineProps({ disabled: { type: Boolean, default: false } });
+
 const emit = defineEmits(["click"]);
 </script>
 
 <template>
-  <button @click="() => emit('click')">
+  <button :disabled="props.disabled" @click="() => emit('click')">
     <slot />
   </button>
 </template>

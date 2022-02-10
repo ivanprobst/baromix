@@ -2,7 +2,12 @@
 import FormInputDate from "./FormInputDate.vue";
 import FormInputTime from "./FormInputTime.vue";
 import FormInputText from "./FormInputText.vue";
+import FormButton from "./FormButton.vue";
 import TagsList from "./TagsList.vue";
+
+const homeSubmitHandler = () => {
+  console.log("click");
+};
 </script>
 
 <template>
@@ -16,9 +21,9 @@ import TagsList from "./TagsList.vue";
 
   <TagsList />
 
-  <p>(the meteo is saying it's ⛈)</p>
+  <FormButton @click="homeSubmitHandler">Send to Baromix</FormButton>
 
-  <button>Send to Baromix</button>
+  <p>(the meteo is saying it's ⛈)</p>
 </template>
 
 <style scoped>

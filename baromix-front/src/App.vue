@@ -54,6 +54,7 @@ input {
   padding: 0.5em;
   font-size: inherit;
   border: none;
+  border-radius: 0.2em;
   background: Gainsboro;
   text-align: center;
 }

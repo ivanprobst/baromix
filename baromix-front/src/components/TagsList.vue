@@ -32,6 +32,7 @@ const tagToggleHandler = (tagId: string) => {
 ul {
   display: flex;
   flex-flow: row wrap;
+  margin-bottom: 3em;
   padding: 0;
   justify-content: center;
   list-style-type: none;

@@ -13,6 +13,7 @@ const props = defineProps({
     <input
       v-model="homeFormStore.inputBarometer"
       :placeholder="props.placeholder"
+      autofocus
     />
   </div>
 </template>

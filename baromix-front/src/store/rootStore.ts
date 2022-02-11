@@ -10,7 +10,10 @@ export const useHomeFormStore = defineStore("homeFormStore", {
 
   getters: {
     canSubmitHomeForm() {
-      if (Number.isNaN(parseInt(this.inputBarometer))) {
+      if (
+        Number.isNaN(parseInt(this.inputBarometer)) ||
+        this.selectedWeatherTags.length === 0
+      ) {
         return false;
       }
       return true;

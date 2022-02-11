@@ -10,4 +10,23 @@ const emit = defineEmits(["click"]);
   </button>
 </template>
 
-<style scoped></style>
+<style scoped>
+button {
+  padding: 0.5em 1em;
+  font-size: 2rem;
+  border-radius: 0.3em;
+  border: 1px solid darkslategray;
+  background: forestgreen;
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+button:disabled {
+  border-color: lightslategray;
+  background: darkseagreen;
+  cursor: not-allowed;
+}
+button:active {
+  background: darkgreen;
+}
+</style>

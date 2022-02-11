@@ -14,11 +14,24 @@ import IconBarometer from "./assets/IconBarometer.vue";
   </main>
 
   <footer>
-    <p>© 2021-2022 ivanprobst</p>
+    <p>
+      © 2021-2022
+      <a href="https://ivanprobst.com" target="_blank" rel="noopener"
+        >ivanprobst</a
+      >
+      |
+      <a
+        href="https://github.com/ivanprobst/baromix"
+        target="_blank"
+        rel="noopener"
+        >GitHub</a
+      >
+    </p>
   </footer>
 </template>
 
 <style>
+/* Layout */
 body {
   margin: 0;
   padding: 0;
@@ -26,17 +39,16 @@ body {
 
 #app {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  color: DarkSlateGray;
+  color: darkslategray;
 }
 
 header {
   display: flex;
   padding: 1em;
-  color: DarkGreen;
 }
 h1 {
   margin-left: 0.5em;
@@ -48,8 +60,13 @@ main {
 
 footer {
   margin-top: auto;
+  border-top: 1px solid gainsboro;
 }
 
+/* Generic tags */
+a {
+  color: forestgreen;
+}
 input {
   padding: 0.5em;
   font-size: inherit;

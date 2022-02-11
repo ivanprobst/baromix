@@ -3,9 +3,9 @@ import { ref } from "vue";
 
 const props = defineProps({ tag: { type: Object, required: true } });
 
-const tagIsActive = ref(false);
-
 const emit = defineEmits(["toggleTag"]);
+
+const tagIsActive = ref(false);
 
 const tagClickHandler = () => {
   tagIsActive.value = !tagIsActive.value;

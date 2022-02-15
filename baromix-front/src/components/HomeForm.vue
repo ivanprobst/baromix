@@ -4,6 +4,8 @@ import FormInputTime from "./FormInputTime.vue";
 import FormInputText from "./FormInputText.vue";
 import FormButton from "./FormButton.vue";
 import TagsList from "./TagsList.vue";
+import WeatherIcon from "./WeatherIcon.vue";
+
 import { useHomeFormStore } from "../store/rootStore";
 
 const homeFormStore = useHomeFormStore();
@@ -37,7 +39,7 @@ const homeSubmitHandler = () => {
     Send to Baromix
   </FormButton>
 
-  <p>(the meteo is saying it's ⛈)</p>
+  <p>(the meteo is saying it's <WeatherIcon location="Bottens,ch" />)</p>
 </template>
 
 <style scoped>

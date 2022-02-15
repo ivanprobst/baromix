@@ -1,21 +1,78 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import Home from "./components/HomeForm.vue";
+import IconBarometer from "./assets/IconBarometer.vue";
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <header>
+    <IconBarometer :width="50" />
+    <h1>Baromix</h1>
+  </header>
+
+  <main>
+    <Home />
+  </main>
+
+  <footer>
+    <p>
+      © 2021-2022
+      <a href="https://ivanprobst.com" target="_blank" rel="noopener"
+        >ivanprobst</a
+      >
+      |
+      <a
+        href="https://github.com/ivanprobst/baromix"
+        target="_blank"
+        rel="noopener"
+        >GitHub</a
+      >
+    </p>
+  </footer>
 </template>
 
 <style>
+/* Layout */
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: darkslategray;
+}
+
+header {
+  display: flex;
+  padding: 1em;
+}
+h1 {
+  margin-left: 0.5em;
+}
+
+main {
+  padding: 0 1em 0 1em;
+}
+
+footer {
+  margin-top: auto;
+  border-top: 1px solid gainsboro;
+}
+
+/* Generic tags */
+a {
+  color: forestgreen;
+}
+input {
+  padding: 0.5em;
+  font-size: inherit;
+  border: none;
+  border-radius: 0.2em;
+  background: Gainsboro;
+  text-align: center;
 }
 </style>

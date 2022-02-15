@@ -1,6 +1,11 @@
 import { createApp } from "vue";
+import VCalendar from "v-calendar";
+import { createPinia } from "pinia";
+import "v-calendar/dist/style.css";
+
 import App from "./App.vue";
 
-createApp(App).mount("#app");
-
-console.log("hello worldy");
+const app = createApp(App);
+app.use(VCalendar, {});
+app.use(createPinia());
+app.mount("#app");

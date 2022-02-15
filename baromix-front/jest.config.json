@@ -1,0 +1,9 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "jsdom",
+  "transform": {
+    "^.+\\.vue$": "vue3-jest",
+    "^.+\\.tsx?$": "ts-jest"
+  },
+  "moduleFileExtensions": ["json", "js", "jsx", "ts", "tsx", "vue"]
+}

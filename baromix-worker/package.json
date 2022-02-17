@@ -16,7 +16,10 @@
     "extends": [
       "typescript",
       "prettier"
-    ]
+    ],
+    "rules": {
+      "@typescript-eslint/no-explicit-any": 0
+    }
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.0.0",

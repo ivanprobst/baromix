@@ -1,11 +1,16 @@
+import { WeatherDataType, PATH_WEATHERDATA } from "./constants";
+
 const sendDefaultResponse = async (request: Request): Promise<Response> => {
   return new Response(`Successful call to url ${request.url}`);
 };
 
 const saveWeatherData = async (request: Request): Promise<Response> => {
-  const requestData = await request.json();
+  const requestData: WeatherDataType = await request.json();
 
-  // TODO: save the data somewhere
+  await WEATHERDATA.put(
+    `${requestData.inputDate}${requestData.inputTime}`,
+    JSON.stringify(requestData),
+  );
 
   const responseData = { success: true, weatherDataSaved: requestData };
   return new Response(JSON.stringify(responseData));
@@ -19,7 +24,7 @@ export async function handleRequest(request: Request): Promise<Response> {
 
   const uri = request.url.replace(/^https:\/\/.*?\//gi, "/");
 
-  if (uri === "/weatherdata" && request.method === "POST" && request.body) {
+  if (uri === PATH_WEATHERDATA && request.method === "POST" && request.body) {
     return saveWeatherData(request);
   }
 

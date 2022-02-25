@@ -20,7 +20,7 @@ const homeSubmitHandler = async () => {
 
   console.log("sending: ", formData);
   const response = await fetch(
-    "https://baromix-worker.ivanprobst.workers.dev",
+    "https://baromix-worker.ivanprobst.workers.dev/weatherdata",
     {
       method: "POST",
       headers: {

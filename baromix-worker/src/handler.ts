@@ -1,12 +1,8 @@
-import {
-  WeatherDataType,
-  PATH_WEATHERDATA,
-  ALLOWED_CORS_ORIGINS,
-} from "./constants";
+import { WeatherDataType, PATH_WEATHERDATA } from "./constants";
 
 const buildCORSHeader = (request: Request) => {
   return {
-    "Access-Control-Allow-Origin": request.headers.get("Origin") as string,
+    "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST",
     "Access-Control-Allow-Headers": request.headers.get(
       "Access-Control-Request-Headers",
@@ -19,10 +15,6 @@ const sendCORS = async (request: Request): Promise<Response> => {
     request.headers.get("Access-Control-Request-Headers") === null ||
     request.headers.get("Origin") === null
   ) {
-    return new Response(null);
-  }
-
-  if (!ALLOWED_CORS_ORIGINS.has(request.headers.get("Origin") as string)) {
     return new Response(null);
   }
 

@@ -1,7 +1,32 @@
-import { WeatherDataType, PATH_WEATHERDATA } from "./constants";
+import {
+  WeatherDataType,
+  PATH_WEATHERDATA,
+  ALLOWED_CORS_ORIGINS,
+} from "./constants";
 
-const sendDefaultResponse = async (request: Request): Promise<Response> => {
-  return new Response(`Successful call to url ${request.url}`);
+const buildCORSHeader = (request: Request) => {
+  return {
+    "Access-Control-Allow-Origin": request.headers.get("Origin") as string,
+    "Access-Control-Allow-Methods": "POST",
+    "Access-Control-Allow-Headers": request.headers.get(
+      "Access-Control-Request-Headers",
+    ) as string,
+  };
+};
+
+const sendCORS = async (request: Request): Promise<Response> => {
+  if (
+    request.headers.get("Access-Control-Request-Headers") === null ||
+    request.headers.get("Origin") === null
+  ) {
+    return new Response(null);
+  }
+
+  if (!ALLOWED_CORS_ORIGINS.has(request.headers.get("Origin") as string)) {
+    return new Response(null);
+  }
+
+  return new Response(null, { headers: buildCORSHeader(request) });
 };
 
 const saveWeatherData = async (request: Request): Promise<Response> => {
@@ -13,17 +38,27 @@ const saveWeatherData = async (request: Request): Promise<Response> => {
   );
 
   const responseData = { success: true, weatherDataSaved: requestData };
-  return new Response(JSON.stringify(responseData));
+  return new Response(JSON.stringify(responseData), {
+    headers: buildCORSHeader(request),
+  });
+};
+
+const sendDefaultResponse = async (request: Request): Promise<Response> => {
+  return new Response(`Successful call to url ${request.url}`);
 };
 
 export async function handleRequest(request: Request): Promise<Response> {
   console.log("request received: ", {
+    method: request.method,
     url: request.url,
     body: request.body,
   });
 
   const uri = request.url.replace(/^https:\/\/.*?\//gi, "/");
 
+  if (request.method === "OPTIONS") {
+    return sendCORS(request);
+  }
   if (uri === PATH_WEATHERDATA && request.method === "POST" && request.body) {
     return saveWeatherData(request);
   }

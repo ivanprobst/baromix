@@ -10,14 +10,31 @@ import { useHomeFormStore } from "../store/rootStore";
 
 const homeFormStore = useHomeFormStore();
 
-const homeSubmitHandler = () => {
-  console.log("click:", {
+const homeSubmitHandler = async () => {
+  const formData = {
     inputBarometer: homeFormStore.inputBarometer,
     inputDate: homeFormStore.inputDate,
     inputTime: homeFormStore.inputTime,
     selectedWeatherTags: homeFormStore.selectedWeatherTags,
-  });
-  // TODO: send this data somewhere!!!
+  };
+
+  console.log("sending: ", formData);
+  const response = await fetch(
+    "https://baromix-worker.ivanprobst.workers.dev/weatherdata",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
+  console.log("response: ", response);
+
+  const responseData = response.body;
+
+  console.log("response data: ", responseData);
 };
 </script>
 

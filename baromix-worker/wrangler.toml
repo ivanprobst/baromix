@@ -1,0 +1,16 @@
+name = "baromix-worker"
+type = "webpack"
+zone_id = ""
+account_id = "421677e67ba3f5bcb5040b975e8bed48"
+route = ""
+workers_dev = true
+compatibility_date = "2022-02-16"
+kv_namespaces = [ 
+  { binding = "WEATHERDATA", id = "cb8e8b3b657d47c98268c443bf16e15d", preview_id = "7aae78103e9d49b784a874032a0162dc" }
+]
+
+[build]
+command = "npm install && npm run build"
+
+[build.upload]
+format = "service-worker"

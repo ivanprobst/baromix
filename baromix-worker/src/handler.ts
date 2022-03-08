@@ -1,4 +1,7 @@
+import { v4 as uuidv4 } from "uuid";
+
 import { WeatherDataType, PATH_WEATHERDATA } from "./constants";
+import { kvPutWeatherData } from "./kv";
 
 const buildCORSHeader = (request: Request) => {
   return {
@@ -24,12 +27,13 @@ const sendCORS = async (request: Request): Promise<Response> => {
 const saveWeatherData = async (request: Request): Promise<Response> => {
   const requestData: WeatherDataType = await request.json();
 
-  await WEATHERDATA.put(
-    `${requestData.inputDate}${requestData.inputTime}`,
-    JSON.stringify(requestData),
-  );
+  const weatherDataId = uuidv4();
+  await kvPutWeatherData(weatherDataId, JSON.stringify(requestData));
 
-  const responseData = { success: true, weatherDataSaved: requestData };
+  const responseData = {
+    success: true,
+    weatherDataSaved: { id: weatherDataId, ...requestData },
+  };
   return new Response(JSON.stringify(responseData), {
     headers: buildCORSHeader(request),
   });

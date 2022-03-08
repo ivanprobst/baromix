@@ -1,5 +1,7 @@
-import { handleRequest } from "../src/handler";
 import makeServiceWorkerEnv from "service-worker-mock";
+
+import { handleRequest } from "../src/handler";
+import * as kv from "../src/kv";
 
 declare let global: any;
 
@@ -19,6 +21,7 @@ describe("Testing workers handlers...", () => {
   });
 
   test("the form data processing routing...", async () => {
+    Object.defineProperty(kv, "kvPutWeatherData", { value: jest.fn() });
     const MOCK_WEATHER_DATA = {
       inputBarometer: "12",
       inputDate: "23",
@@ -32,13 +35,16 @@ describe("Testing workers handlers...", () => {
         body: JSON.stringify(MOCK_WEATHER_DATA),
       }),
     );
-
-    const status = await result.json();
+    const { success, weatherDataSaved } = await result.json();
 
     expect(result.status).toEqual(200);
-    expect(status).toEqual({
-      success: true,
-      weatherDataSaved: MOCK_WEATHER_DATA,
-    });
+    expect(success).toStrictEqual(true);
+    expect(weatherDataSaved).toHaveProperty("id");
+    expect(weatherDataSaved).toMatchObject(MOCK_WEATHER_DATA);
+    expect(kv.kvPutWeatherData).toHaveBeenCalled();
+    expect(kv.kvPutWeatherData).toHaveBeenCalledWith(
+      weatherDataSaved.id,
+      JSON.stringify(MOCK_WEATHER_DATA),
+    );
   });
 });

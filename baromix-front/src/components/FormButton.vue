@@ -16,17 +16,17 @@ button {
   font-size: 2rem;
   border-radius: 0.3em;
   border: 1px solid darkslategray;
-  background: forestgreen;
+  background: steelblue;
   color: white;
   cursor: pointer;
   user-select: none;
 }
 button:disabled {
   border-color: lightslategray;
-  background: darkseagreen;
+  background: lightsteelblue;
   cursor: not-allowed;
 }
 button:active {
-  background: darkgreen;
+  background: rgb(54, 100, 138);
 }
 </style>

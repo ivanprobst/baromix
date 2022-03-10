@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
-import { WeatherDataType, PATH_WEATHERDATA } from "./constants";
-import { kvPutWeatherData } from "./kv";
+import { IAPIResponse, IWeatherData, PATH_WEATHERDATA } from "./constants";
+import { kvGetWeatherData, kvPutWeatherData } from "./fetchKV";
 
 const buildCORSHeader = (request: Request) => {
   return {
@@ -24,16 +24,38 @@ const sendCORS = async (request: Request): Promise<Response> => {
   return new Response(null, { headers: buildCORSHeader(request) });
 };
 
+const getWeatherData = async (request: Request): Promise<Response> => {
+  let responseData: IAPIResponse = {
+    success: false,
+    error_code: "unknown_error",
+  };
+  try {
+    const weatherDataList = await kvGetWeatherData();
+
+    responseData = {
+      success: true,
+      data: { weatherDataList },
+    };
+  } catch (e) {
+    console.log(e);
+  }
+
+  return new Response(JSON.stringify(responseData), {
+    headers: buildCORSHeader(request),
+  });
+};
+
 const saveWeatherData = async (request: Request): Promise<Response> => {
-  const requestData: WeatherDataType = await request.json();
+  const requestData: Omit<IWeatherData, "id"> = await request.json();
 
   const weatherDataId = uuidv4();
   await kvPutWeatherData(weatherDataId, JSON.stringify(requestData));
 
   const responseData = {
     success: true,
-    weatherDataSaved: { id: weatherDataId, ...requestData },
+    data: { weatherDataSaved: { id: weatherDataId, ...requestData } },
   };
+
   return new Response(JSON.stringify(responseData), {
     headers: buildCORSHeader(request),
   });
@@ -54,9 +76,14 @@ export async function handleRequest(request: Request): Promise<Response> {
 
   if (request.method === "OPTIONS") {
     return sendCORS(request);
-  }
-  if (uri === PATH_WEATHERDATA && request.method === "POST" && request.body) {
+  } else if (
+    uri === PATH_WEATHERDATA &&
+    request.method === "POST" &&
+    request.body
+  ) {
     return saveWeatherData(request);
+  } else if (uri === PATH_WEATHERDATA && request.method === "GET") {
+    return getWeatherData(request);
   }
 
   return sendDefaultResponse(request);

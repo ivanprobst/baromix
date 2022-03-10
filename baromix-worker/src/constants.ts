@@ -1,8 +1,21 @@
-export interface WeatherDataType {
+export const PATH_WEATHERDATA = "/weatherdata";
+
+export interface IWeatherData {
+  id: string;
   inputDate: string;
   inputTime: string;
   inputBarometer: string;
   selectedWeatherTags: Array<string>;
 }
 
-export const PATH_WEATHERDATA = "/weatherdata";
+interface IAPIResponseSuccess {
+  success: true;
+  data: any;
+}
+
+interface IAPIResponseFailed {
+  success: false;
+  error_code: string;
+}
+
+export type IAPIResponse = IAPIResponseSuccess | IAPIResponseFailed;

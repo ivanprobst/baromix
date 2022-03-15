@@ -1,12 +1,25 @@
 import { defineStore } from "pinia";
+import { IWeatherData } from "../models/weatherData";
+
+export interface IRootStore {
+  weatherDataList: Array<IWeatherData>;
+}
+
+export const useRootStore = defineStore("RootStore", {
+  state: () =>
+    ({
+      weatherDataList: [],
+    } as IRootStore),
+});
 
 export const useHomeFormStore = defineStore("homeFormStore", {
-  state: () => ({
-    inputDate: new Date(),
-    inputTime: new Date(),
-    inputBarometer: "",
-    selectedWeatherTags: [],
-  }),
+  state: () =>
+    ({
+      inputDate: new Date(),
+      inputTime: new Date(),
+      inputBarometer: "",
+      selectedWeatherTags: [],
+    } as IWeatherData),
 
   getters: {
     canSubmitHomeForm() {

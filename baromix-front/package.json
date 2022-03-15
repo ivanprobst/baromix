@@ -49,7 +49,8 @@
       "prettier"
     ],
     "rules": {
-      "@typescript-eslint/ban-ts-comment": 0
+      "@typescript-eslint/ban-ts-comment": 0,
+      "@typescript-eslint/no-explicit-any": false
     }
   },
   "prettier": {}

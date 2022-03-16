@@ -15,8 +15,8 @@ export const useRootStore = defineStore("RootStore", {
 export const useHomeFormStore = defineStore("homeFormStore", {
   state: () =>
     ({
-      inputDate: new Date(),
-      inputTime: new Date(),
+      inputDate: "",
+      inputTime: "",
       inputBarometer: "",
       selectedWeatherTags: [],
     } as IWeatherData),

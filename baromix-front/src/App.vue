@@ -104,6 +104,9 @@ footer {
 }
 
 /* Generic tags */
+h2 {
+  font-size: 3rem;
+}
 a {
   color: steelblue;
 }

@@ -16,19 +16,18 @@ export const useRootStore = defineStore("RootStore", {
       isLoading: false,
     } as IRootStore),
 
-  getters: {
-    getLatest7WeatherData: (state) => {
-      const sortedList = state.weatherDataList.sort((a, b) =>
+  actions: {
+    getLatestWeatherData(latestCount?: number) {
+      const sortedList = this.weatherDataList.sort((a, b) =>
         a.inputDate > b.inputDate ? 1 : b.inputDate > a.inputDate ? -1 : 0
       );
 
-      return sortedList.slice(-7);
+      return sortedList.slice(latestCount ? -latestCount : 0).reverse();
     },
-  },
 
-  actions: {
     async refreshWeatherDataList() {
       this.isLoading = true;
+
       const responseRaw = await fetch(BAROMIX_API_URL, {
         method: "GET",
       });
@@ -42,6 +41,7 @@ export const useRootStore = defineStore("RootStore", {
         this.weatherDataList = [];
         this.apiError = responseJSON.error_code;
       }
+
       this.isLoading = false;
     },
   },

@@ -60,10 +60,7 @@ const homeSubmitHandler = async () => {
 </template>
 
 <style scoped>
-h2 {
-  font-size: 3rem;
-}
-main p {
+p {
   font-size: 2rem;
 }
 </style>

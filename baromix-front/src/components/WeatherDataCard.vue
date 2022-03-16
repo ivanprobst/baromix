@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import { format, parseISO } from "date-fns";
 import { IWeatherData } from "../models/weatherData";
-import { WEATHER_TAGS_LABELS } from "../utils/constants";
+import { convertTagIdsToLabels } from "../utils/utils";
 
 const props = defineProps<{ weatherData: IWeatherData }>();
-
-const weatherTagsLabels = props.weatherData.selectedWeatherTags.map(
-  (weatherTagId) =>
-    WEATHER_TAGS_LABELS.find(
-      (weatherTagLabel) => weatherTagLabel.id === weatherTagId
-    )?.label
-);
 </script>
 
 <template>
@@ -20,7 +13,11 @@ const weatherTagsLabels = props.weatherData.selectedWeatherTags.map(
     </h6>
 
     <ul>
-      <li v-for="weatherTagLabel in weatherTagsLabels">
+      <li
+        v-for="weatherTagLabel in convertTagIdsToLabels(
+          weatherData.selectedWeatherTags
+        )"
+      >
         {{ weatherTagLabel }}
       </li>
     </ul>

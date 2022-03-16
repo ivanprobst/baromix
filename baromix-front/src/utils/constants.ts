@@ -19,3 +19,6 @@ export const WEATHER_TAGS_LABELS = [
   { id: "stormy", label: "⚡️ stormy" },
   { id: "snowy", label: "☃️ snowy" },
 ];
+
+export const BAROMIX_API_URL =
+  "https://baromix-worker.ivanprobst.workers.dev/weatherdata";

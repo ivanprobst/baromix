@@ -1,15 +1,50 @@
 import { defineStore } from "pinia";
 import { IWeatherData } from "../models/weatherData";
+import { BAROMIX_API_URL, IAPIResponse } from "../utils/constants";
 
 export interface IRootStore {
   weatherDataList: Array<IWeatherData>;
+  apiError: string;
+  isLoading: boolean;
 }
 
 export const useRootStore = defineStore("RootStore", {
   state: () =>
     ({
       weatherDataList: [],
+      apiError: "",
+      isLoading: false,
     } as IRootStore),
+
+  getters: {
+    getLatest7WeatherData: (state) => {
+      const sortedList = state.weatherDataList.sort((a, b) =>
+        a.inputDate > b.inputDate ? 1 : b.inputDate > a.inputDate ? -1 : 0
+      );
+
+      return sortedList.slice(-7);
+    },
+  },
+
+  actions: {
+    async refreshWeatherDataList() {
+      this.isLoading = true;
+      const responseRaw = await fetch(BAROMIX_API_URL, {
+        method: "GET",
+      });
+
+      const responseJSON = (await responseRaw.json()) as IAPIResponse;
+
+      if (responseJSON.success) {
+        this.weatherDataList = responseJSON.data.weatherDataList;
+        this.apiError = "";
+      } else {
+        this.weatherDataList = [];
+        this.apiError = responseJSON.error_code;
+      }
+      this.isLoading = false;
+    },
+  },
 });
 
 export const useHomeFormStore = defineStore("homeFormStore", {

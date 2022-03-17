@@ -6,6 +6,7 @@ import { createToast } from "mosha-vue-toastify";
 import "mosha-vue-toastify/dist/style.css";
 import IconLoading from "../assets/IconLoading.vue";
 import { convertTagIdsToLabels } from "../utils/utils";
+import { Chart, Grid, Line } from "vue3-charts";
 
 const rootStore = useRootStore();
 
@@ -24,7 +25,6 @@ const getAllWeatherData = async () => {
     return;
   }
 };
-
 getAllWeatherData();
 </script>
 
@@ -33,16 +33,35 @@ getAllWeatherData();
 
   <h3>Last 7 days</h3>
   <IconLoading v-if="rootStore.isLoading" />
-  <ul id="latest-weatherdata">
+  <ul id="latest-weatherdata" v-if="!rootStore.isLoading">
     <li v-for="weatherData in rootStore.getLatestWeatherData(7)">
       <WeatherDataCard :weather-data="weatherData" />
     </li>
   </ul>
 
+  <h3>Barotrends</h3>
+  <IconLoading v-if="rootStore.isLoading" />
+  <Chart
+    v-if="!rootStore.isLoading"
+    :size="{ width: 800, height: 400 }"
+    :data="rootStore.getChartData"
+    direction="horizontal"
+  >
+    <template #layers>
+      <Grid strokeDasharray="2,2" />
+      <Line
+        :dataKeys="['name', 'barometer']"
+        type="monotone"
+        :lineStyle="{
+          stroke: 'steelblue',
+        }"
+      />
+    </template>
+  </Chart>
+
   <h3>All weather data</h3>
   <IconLoading v-if="rootStore.isLoading" />
-
-  <ul id="all-weatherdata">
+  <ul id="all-weatherdata" v-if="!rootStore.isLoading">
     <li class="header">
       <div>Date</div>
       <div>Value</div>

@@ -1,3 +1,4 @@
+import { format, parseISO } from "date-fns";
 import { defineStore } from "pinia";
 import { IWeatherData } from "../models/weatherData";
 import { BAROMIX_API_URL, IAPIResponse } from "../utils/constants";
@@ -15,6 +16,24 @@ export const useRootStore = defineStore("RootStore", {
       apiError: "",
       isLoading: false,
     } as IRootStore),
+
+  getters: {
+    getChartData: (state) => {
+      const sortedList = state.weatherDataList.sort((a, b) =>
+        a.inputDate > b.inputDate ? 1 : b.inputDate > a.inputDate ? -1 : 0
+      );
+
+      return sortedList.map((weatherData) => {
+        return {
+          name: `${format(parseISO(weatherData.inputDate), "d/M")}@${format(
+            parseISO(weatherData.inputTime),
+            "H:mm"
+          )}`,
+          barometer: parseFloat(weatherData.inputBarometer),
+        };
+      });
+    },
+  },
 
   actions: {
     getLatestWeatherData(latestCount?: number) {

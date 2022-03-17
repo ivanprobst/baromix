@@ -76,8 +76,10 @@ getAllWeatherData();
       </li>
       <li v-for="weatherData in rootStore.getLatestWeatherData()">
         <div>
-          {{ format(parseISO(weatherData.inputDate), "MMM d, yyyy") }}
-          {{ format(parseISO(weatherData.inputTime), "@H:mm") }}
+          {{
+            format(parseISO(weatherData.inputDate.toString()), "MMM d, yyyy")
+          }}
+          {{ format(parseISO(weatherData.inputTime.toString()), "@H:mm") }}
         </div>
         <div>{{ weatherData.inputBarometer }}</div>
         <div>

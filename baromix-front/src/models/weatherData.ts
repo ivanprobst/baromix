@@ -1,6 +1,6 @@
 export interface IWeatherData {
-  inputDate: string;
-  inputTime: string;
+  inputDate: Date;
+  inputTime: Date;
   inputBarometer: string;
   selectedWeatherTags: Array<string>;
 }

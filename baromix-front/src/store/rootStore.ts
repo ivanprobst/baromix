@@ -21,10 +21,10 @@ export const useRootStore = defineStore("RootStore", {
     getChartData: (state) => {
       return state.weatherDataList.map((weatherData) => {
         return {
-          name: `${format(parseISO(weatherData.inputDate), "d/M")}@${format(
-            parseISO(weatherData.inputTime),
-            "H:mm"
-          )}`,
+          name: `${format(
+            parseISO(weatherData.inputDate.toString()),
+            "d/M"
+          )}@${format(parseISO(weatherData.inputTime.toString()), "H:mm")}`,
           barometer: parseFloat(weatherData.inputBarometer),
         };
       });
@@ -76,8 +76,8 @@ export const useRootStore = defineStore("RootStore", {
 export const useHomeFormStore = defineStore("homeFormStore", {
   state: () =>
     ({
-      inputDate: "",
-      inputTime: "",
+      inputDate: new Date(),
+      inputTime: new Date(),
       inputBarometer: "",
       selectedWeatherTags: [],
     } as IWeatherData),

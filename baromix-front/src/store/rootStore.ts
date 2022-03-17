@@ -19,11 +19,7 @@ export const useRootStore = defineStore("RootStore", {
 
   getters: {
     getChartData: (state) => {
-      const sortedList = state.weatherDataList.sort((a, b) =>
-        a.inputDate > b.inputDate ? 1 : b.inputDate > a.inputDate ? -1 : 0
-      );
-
-      return sortedList.map((weatherData) => {
+      return state.weatherDataList.map((weatherData) => {
         return {
           name: `${format(parseISO(weatherData.inputDate), "d/M")}@${format(
             parseISO(weatherData.inputTime),
@@ -33,15 +29,22 @@ export const useRootStore = defineStore("RootStore", {
         };
       });
     },
+    getBarometerTrend: (state) => {
+      const listLength = state.weatherDataList.length;
+      if (listLength === 0) {
+        return null;
+      }
+
+      return state.weatherDataList[listLength - 1].inputBarometer <
+        state.weatherDataList[listLength - 2].inputBarometer
+        ? "DOWN"
+        : "UP";
+    },
   },
 
   actions: {
-    getLatestWeatherData(latestCount?: number) {
-      const sortedList = this.weatherDataList.sort((a, b) =>
-        a.inputDate > b.inputDate ? 1 : b.inputDate > a.inputDate ? -1 : 0
-      );
-
-      return sortedList.slice(latestCount ? -latestCount : 0).reverse();
+    getLatestWeatherData(latestCount = 0) {
+      return this.weatherDataList.slice(latestCount && -latestCount).reverse();
     },
 
     async refreshWeatherDataList() {
@@ -54,7 +57,11 @@ export const useRootStore = defineStore("RootStore", {
       const responseJSON = (await responseRaw.json()) as IAPIResponse;
 
       if (responseJSON.success) {
-        this.weatherDataList = responseJSON.data.weatherDataList;
+        this.weatherDataList = responseJSON.data.weatherDataList.sort(
+          (a: IWeatherData, b: IWeatherData) =>
+            a.inputDate > b.inputDate ? 1 : b.inputDate > a.inputDate ? -1 : 0
+        );
+
         this.apiError = "";
       } else {
         this.weatherDataList = [];

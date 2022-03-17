@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+import { createToast } from "mosha-vue-toastify";
 import FormInputDate from "./FormInputDate.vue";
 import FormInputTime from "./FormInputTime.vue";
 import FormInputText from "./FormInputText.vue";
@@ -7,8 +9,10 @@ import TagsList from "./TagsList.vue";
 import WeatherIcon from "./WeatherIcon.vue";
 
 import { useHomeFormStore } from "../store/rootStore";
+import { BAROMIX_API_URL, IAPIResponse } from "../utils/constants";
 
 const homeFormStore = useHomeFormStore();
+const router = useRouter();
 
 const homeSubmitHandler = async () => {
   const formData = {
@@ -18,23 +22,28 @@ const homeSubmitHandler = async () => {
     selectedWeatherTags: homeFormStore.selectedWeatherTags,
   };
 
-  console.log("sending: ", formData);
-  const response = await fetch(
-    "https://baromix-worker.ivanprobst.workers.dev/weatherdata",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  const responseRaw = await fetch(BAROMIX_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  const responseJSON = (await responseRaw.json()) as IAPIResponse;
+  if (!responseJSON.success) {
+    console.log("failed to POST /weatherdata: ", responseJSON.error_code);
+    createToast(
+      {
+        title: "Error",
+        description: `Failed to load weather data (${responseJSON.error_code}). Please refresh the page.`,
       },
-      body: JSON.stringify(formData),
-    }
-  );
+      { type: "danger", position: "bottom-center" }
+    );
+    return;
+  }
 
-  console.log("response: ", response);
-
-  const responseData = response.body;
-
-  console.log("response data: ", responseData);
+  router.push("/summary");
 };
 </script>
 

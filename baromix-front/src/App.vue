@@ -104,6 +104,9 @@ footer {
 }
 
 /* Generic tags */
+h2 {
+  font-size: 3rem;
+}
 a {
   color: steelblue;
 }
@@ -116,5 +119,10 @@ input {
   background: OldLace;
   color: darkslategray;
   text-align: center;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 </style>

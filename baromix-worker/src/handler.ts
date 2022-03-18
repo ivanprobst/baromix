@@ -51,7 +51,7 @@ const saveWeatherData = async (request: Request): Promise<Response> => {
   const weatherDataId = uuidv4();
   await kvPutWeatherData(weatherDataId, JSON.stringify(requestData));
 
-  const responseData = {
+  const responseData: IAPIResponse = {
     success: true,
     data: { weatherDataSaved: { id: weatherDataId, ...requestData } },
   };

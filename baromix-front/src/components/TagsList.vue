@@ -1,17 +1,7 @@
 <script setup lang="ts">
 import TagsListTag from "./TagsListTag.vue";
-
 import { useHomeFormStore } from "../store/rootStore";
-
-const TAGS_LABELS = [
-  { id: "sunny", label: "🌞 sunny" },
-  { id: "cloudy", label: "☁️ cloudy" },
-  { id: "windy", label: "🌬 windy" },
-  { id: "tornady", label: "🌪 tornady" },
-  { id: "rainy", label: "☔️ rainy" },
-  { id: "stormy", label: "⚡️ stormy" },
-  { id: "snowy", label: "☃️ snowy" },
-];
+import { WEATHER_TAGS_LABELS } from "../utils/constants";
 
 const homeFormStore = useHomeFormStore();
 
@@ -22,7 +12,7 @@ const tagToggleHandler = (tagId: string) => {
 
 <template>
   <ul>
-    <li v-for="tag in TAGS_LABELS" :key="tag.id">
+    <li v-for="tag in WEATHER_TAGS_LABELS" :key="tag.id">
       <TagsListTag :tag="tag" @toggle-tag="tagToggleHandler" />
     </li>
   </ul>

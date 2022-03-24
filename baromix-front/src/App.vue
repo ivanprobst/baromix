@@ -12,11 +12,11 @@ import IconBarometer from "./assets/IconBarometer.vue";
     </div>
 
     <nav>
-      <router-link v-if="$route.path === '/summary'" to="/"
-        >Add a new entry</router-link
+      <router-link :class="{ active: $route.path === '/' }" to="/">
+        New entry</router-link
       >
-      <router-link v-if="$route.path === '/'" to="/summary"
-        >See summary</router-link
+      <router-link :class="{ active: $route.path === '/summary' }" to="/summary"
+        >Summary</router-link
       >
     </nav>
   </header>
@@ -60,6 +60,7 @@ body {
 
 header {
   display: flex;
+  align-items: flex-start;
 }
 
 #logo {
@@ -77,14 +78,14 @@ header {
 }
 
 nav {
+  flex-grow: 1;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
+  background: steelblue;
 }
 nav a {
   display: block;
   padding: 1em 1.5em;
-  border-bottom-right-radius: 0.8em;
-  background: steelblue;
   transition: background-color 0.2s ease;
   color: white;
   text-decoration: none;
@@ -92,6 +93,9 @@ nav a {
 }
 nav a:hover {
   background: rgb(54, 100, 138);
+}
+nav a.active {
+  border-bottom: 10px solid rgb(54, 100, 138);
 }
 
 main {

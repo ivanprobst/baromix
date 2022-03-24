@@ -29,7 +29,7 @@ getAllWeatherData();
 </script>
 
 <template>
-  <h2>Weather data</h2>
+  <h2>Summary</h2>
 
   <IconLoading v-if="rootStore.isLoading" />
 

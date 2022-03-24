@@ -1,0 +1,26 @@
+name: Baromix deploy - dev
+
+on:
+  push:
+    branches:
+      - "dev"
+
+jobs:
+  deploy-dev-workers:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "⚡️ Starting to deploy Baromix workers on dev..."
+      - name: Checking out repo...
+        uses: actions/checkout@v2
+      - name: Starting Node...
+        uses: actions/setup-node@v2
+      - name: Installing workers...
+        run: cd baromix-worker && npm install
+      - name: Building workers...
+        run: cd baromix-worker && npm run build
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{secrets.CF_API_TOKEN}}
+          workingDirectory: "baromix-worker"
+      - run: echo "⚡️ Deploy completed!"
